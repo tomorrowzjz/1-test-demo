@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video.js KPIs Example</title>
+  <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js"></script>
+</head>
+<body>
+  <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup='{}'>
+    <source src="your-m3u8-url.m3u8" type="application/x-mpegURL" />
+  </video>
+  <script>
+    const player = videojs('my-video');
+    let bufferStartTime = 0;
+    let totalBufferTime = 0;
+    let playStartTime = 0;
+    let totalPlayTime = 0;
+
+    player.ready(() => {
+      // 监听播放事件
+      player.on('play', () => {
+        playStartTime = new Date().getTime();
+      });
+
+      // 监听缓冲开始事件
+      player.on('waiting', () => {
+        bufferStartTime = new Date().getTime();
+      });
+
+      // 监听缓冲结束事件
+      player.on('playing', () => {
+        if (bufferStartTime) {
+          const bufferEndTime = new Date().getTime();
+          totalBufferTime += bufferEndTime - bufferStartTime;
+          bufferStartTime = 0;
+        }
+      });
+
+      // 监听暂停事件
+      player.on('pause', () => {
+        const pauseTime = new Date().getTime();
+        totalPlayTime += pauseTime - playStartTime;
+        playStartTime = pauseTime;
+      });
+
+      // 监听播放结束事件
+      player.on('ended', () => {
+        const endTime = new Date().getTime();
+        totalPlayTime += endTime - playStartTime;
+        reportKPIs();
+      });
+    });
+
+    function reportKPIs() {
+      const bufferRate = totalBufferTime / (totalPlayTime + totalBufferTime); // 缓冲时间除以总时间（播放时间 + 缓冲时间）
+      const averagePlayTime = totalPlayTime / 1000; // 播放时长（秒）
+
+      console.log('缓冲率：', bufferRate);
+      console.log('平均播放时长：', averagePlayTime);
+    }
+  </script>
+</body>
+</html>

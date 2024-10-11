@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curve with arrow demo</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+<script>
+
+
+/**
+ * 绘制一条曲线路径
+ * @param  {Object} ctx canvas渲染上下文
+ * @param  {Array<number>} start 起点
+ * @param  {Array<number>} end 终点
+ * @param  {number} curveness 曲度(0-1)
+ * @param  {number} percent 绘制百分比(0-100)
+ */
+ function drawCurvePath( ctx, start, end, curveness, percent ) {
+    var cp1 = [
+        ( start[ 0 ] + end[ 0 ] ) / 2 - ( start[ 1 ] - end[ 1 ] ) * curveness,
+        ( start[ 1 ] + end[ 1 ] ) / 2 - ( end[ 0 ] - start[ 0 ] ) * curveness
+    ];
+    if(percent === 100){
+        cp.x = cp1[0]
+        cp.y = cp1[1]
+    }
+    // console.log(cp1,'cp1');
+    ctx.moveTo( start[ 0 ], start[ 1 ] );
+    for ( var t = 0; t <= percent / 100; t += 0.01 ) {
+        var x = quadraticBezier( start[ 0 ], cp1[ 0 ], end[ 0 ], t );
+        var y = quadraticBezier( start[ 1 ], cp1[ 1 ], end[ 1 ], t );
+        ctx.lineTo( x, y );
+    }
+}
+function quadraticBezier( p0, p1, p2, t ) {
+var k = 1 - t;
+return k * k * p0 + 2 * ( 1 - t ) * t * p1 + t * t * p2;    // 这个方程就是二次贝赛尔曲线方程
+}
+let stop = null;
+var canvas = document.getElementById( 'canvas' );
+var ctx = canvas.getContext( '2d' );
+ctx.lineWidth = 2;
+ctx.strokeStyle = '#000';
+var percent = 0;
+const sp = { left: 90, top: 70 };
+const ep = { left: 40, top: 0 };
+// 下面求各点在 Canvas 中的坐标
+sp.x = sp.left - Math.min(sp.left, ep.left);
+sp.y = sp.top - Math.min(sp.top, ep.top);
+ep.x = ep.left - Math.min(sp.left, ep.left);
+ep.y = ep.top - Math.min(sp.top, ep.top);
+const cp = {
+    x: (sp.x + ep.x) / 2,
+    y: (sp.x + ep.x) / 2
+};
+let midx = (sp.x + ep.x) / 2
+let midy = (sp.y + ep.y) / 2
+if(midx === 0||midy === 0){
+    let max = Math.min(midx, midy)
+    if(midx>midy){
+        cp.x = midx
+        cp.y = -midx
+    }else{
+        cp.x = -midy
+        cp.y = midy
+    }
+
+    // if(midx>midy){
+    //     cp.x = midx
+    //     cp.y = midx
+    // }else{
+    //     cp.x = midy
+    //     cp.y = midy
+    // }
+}
+let sarr = [sp.x,sp.y]
+let earr = [ep.x,ep.y]
+function animate() {
+    ctx.clearRect( 0, 0, 800, 800 );
+    ctx.beginPath();
+    drawCurvePath( 
+        ctx,
+        sarr,
+        earr,
+        0.5,
+        percent
+    );
+    ctx.stroke();
+    percent = percent + 1;
+    if(percent === 101){
+        console.log(100);
+        drawArrow()
+        window.cancelAnimationFrame(stop);
+        return
+    }
+    stop = requestAnimationFrame( animate );
+}
+animate();
+
+
+
+
+function drawArrow(){
+    // 绘制出控制点到终点的连线，方便 debug
+    // ctx.beginPath();
+    // ctx.moveTo(cp.x, cp.y);
+    // ctx.lineTo(ep.x, ep.y);
+    // ctx.strokeStyle = 'red';
+    // ctx.lineWidth = '1';
+    // ctx.stroke();
+    // ctx.closePath();
+    // 把 Canvas 坐标转换成旋转计算所使用的坐标，接收 1 个参数，需要转换的点 p
+    function coordEx(p) {
+        const result = {};
+        if (ep.x <= sp.x && ep.y <= sp.y) {
+            result.x = p.x;
+            result.y = p.y;
+        } else if (ep.x <= sp.x && ep.y >= sp.y) {
+            result.x = p.x;
+            result.y = Math.abs(sp.top - ep.top) - p.y;
+        } else if (ep.x >= sp.x && ep.y <= sp.y) {
+            result.x = Math.abs(sp.left - ep.left) - p.x;
+            result.y = p.y;
+        } else if (ep.x >= sp.x && ep.y >= sp.y) {
+            result.x = Math.abs(sp.left - ep.left) - p.x;
+            result.y = Math.abs(sp.top - ep.top) - p.y;
+        }
+
+        return result;
+    }
+
+    // 把旋转计算用的坐标转换回 Canvas 坐标，用于绘图
+    function coordRe(p) {
+        const result = {};
+        if (ep.x <= sp.x && ep.y <= sp.y) {
+            result.x = p.x;
+            result.y = p.y;
+        } else if (ep.x <= sp.x && ep.y >= sp.y) {
+            result.x = p.x;
+            result.y = Math.abs(sp.top - ep.top) - p.y;
+        } else if (ep.x >= sp.x && ep.y <= sp.y) {
+            result.x = Math.abs(sp.left - ep.left) - p.x;
+            result.y = p.y;
+        } else if (ep.x >= sp.x && ep.y >= sp.y) {
+            result.x = Math.abs(sp.left - ep.left) - p.x;
+            result.y = Math.abs(sp.top - ep.top) - p.y;
+        }
+
+        return result;
+    }
+    const CURVE_ARROW_ANGLE = 30; // 旋转的角度
+    const CURVE_ARROW_LENGTH = 10; // 绘制箭头线段的长度
+    const ncp = cp; // 转换控制点坐标
+    console.log(cp,ncp,'ncp');
+    // 计算逆时针旋转后的坐标
+    const nlp = {
+        x: ncp.x * Math.cos((CURVE_ARROW_ANGLE * Math.PI) / 180) - ncp.y * Math.sin((CURVE_ARROW_ANGLE * Math.PI) / 180),
+        y: ncp.x * Math.sin((CURVE_ARROW_ANGLE * Math.PI) / 180) + ncp.y * Math.cos((CURVE_ARROW_ANGLE * Math.PI) / 180)
+    };
+    console.log(nlp,'nlp');
+    // 计算箭头线段长度和 nlp 到原点距离的比值，用于计算绘制箭头的坐标
+    const lRate = CURVE_ARROW_LENGTH / Math.sqrt(nlp.x * nlp.x + nlp.y * nlp.y);
+    // 把 nlp 的坐标转换为绘制箭头的坐标
+    nlp.x = nlp.x * lRate;
+    nlp.y = nlp.y * lRate;
+    // 把绘制箭头的坐标转换回 Canvas 坐标
+    const lArrowPoint = coordRe(nlp);
+    console.log(lArrowPoint,'lArrowPoint');
+    ctx.beginPath();
+    ctx.moveTo(lArrowPoint.x, lArrowPoint.y);
+    ctx.lineTo(ep.x, ep.y);
+    // ctx.strokeStyle = '#FB9845';
+    // ctx.lineWidth = '3';
+    ctx.stroke();
+
+    // 计算顺时针旋转后的坐标
+    const nrp = {
+        x: ncp.x * Math.cos((CURVE_ARROW_ANGLE * Math.PI) / 180) + ncp.y * Math.sin((CURVE_ARROW_ANGLE * Math.PI) / 180),
+        y: -ncp.x * Math.sin((CURVE_ARROW_ANGLE * Math.PI) / 180) + ncp.y * Math.cos((CURVE_ARROW_ANGLE * Math.PI) / 180)
+    };
+    console.log(nrp,'nrp');
+    // 计算箭头线段长度和 nrp 到原点距离的比值，用于计算绘制箭头的坐标
+    const rRate = CURVE_ARROW_LENGTH / Math.sqrt(nrp.x * nrp.x + nrp.y * nrp.y);
+    // 把 nrp 的坐标转换为绘制箭头的坐标
+    nrp.x = nrp.x * rRate;
+    nrp.y = nrp.y * rRate;
+    // 把绘制箭头的坐标转换回 Canvas 坐标
+    const rArrowPoint = coordRe(nrp);
+    console.log(rArrowPoint,'rArrowPoint');
+    ctx.beginPath();
+    ctx.moveTo(rArrowPoint.x, rArrowPoint.y);
+    ctx.lineTo(ep.x, ep.y);
+    // ctx.strokeStyle = '#FB9845';
+    // ctx.lineWidth = '3';
+    ctx.stroke();
+}
+// drawArrow()
+</script>
+</body>
+
+</html>

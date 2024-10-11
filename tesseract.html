@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+
+</head>
+<body>
+    <script>
+        // import Tesseract from 'tesseract.js';
+ 
+            window.Tesseract.recognize(
+            'https://tesseract.projectnaptha.com/img/eng_bw.png',
+            'eng',
+            { logger: m => console.log(m) }
+            ).then(({ data: { text } }) => {
+            console.log(text);
+            })
+    </script>
+</body>
+</html>

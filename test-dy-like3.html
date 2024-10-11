@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* .like-button {
+  width: 100px;
+  height: 100px;
+  background-image: url('https://gxcos.cdnjtzy.com/fe/jzl-index/banner-bg.png');
+  background-size: cover;
+  animation: likeAnimation 0.4s linear;
+} */
+
+.like-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.like-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 80px;
+  height: 80px;
+  background-image: radial-gradient(circle at center, #FF3366, #FF6600);
+  background-size: cover;
+  /* animation: likeAnimation 2s linear; */
+}
+
+@keyframes likeAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  10% {
+    transform: translate(-100%, -100%) rotate(0deg);
+  }
+  30% {
+    transform: translate(-200%, -200%) rotate(-20deg);
+  }
+  50% {
+    transform: translate(-50%, -300%) rotate(20deg);
+  }
+  70% {
+    transform: translate(50%, -400%) rotate(-20deg);
+  }
+  90% {
+    transform: translate(200%, -500%) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -600%);
+  }
+}
+
+@keyframes likeAnimation1 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  10% {
+    transform: translate(100%, -100%) rotate(0deg);
+  }
+  30% {
+    transform: translate(200%, -200%) rotate(-20deg);
+  }
+  50% {
+    transform: translate(-50%, -300%) rotate(20deg);
+  }
+  70% {
+    transform: translate(-50%, -400%) rotate(-20deg);
+  }
+  90% {
+    transform: translate(-200%, -500%) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-250%, -600%);
+  }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+  <div class="like-container">
+    <button class="like-button" onclick="addLike()">11111</button>
+  </div>
+  
+    <script>
+      let i = 0
+        function addLike() {
+  const container = document.querySelector('.like-container');
+  const button = document.createElement('button');
+  button.className = 'like-button';
+  container.appendChild(button);
+
+  button.addEventListener('animationend', function() {
+    container.removeChild(button);
+  });
+  i = i+1
+  if(i%2===0){
+    setTimeout(function() {
+    button.style.animation = 'likeAnimation 2s linear forwards';
+  }, 100);
+  }else{
+    setTimeout(function() {
+    button.style.animation = 'likeAnimation1 2s linear forwards';
+  }, 100);
+  }
+  
+}
+
+
+
+    </script>
+</body>
+</html>

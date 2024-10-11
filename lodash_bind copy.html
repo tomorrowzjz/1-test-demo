@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>
+</head>
+<body>
+    <script>
+        function Person(name,age){
+    this.name = name;
+    this.age = age;
+
+    _.bindAll(this, 'sayName', 'sayAge');
+}
+
+Person.prototype.sayName = function(){
+    console.log('name'+this.name);
+}
+
+Person.prototype.sayAge = function(){
+    console.log(this.age);
+}
+
+var person = new Person('xiaoming',26);
+// person.sayAge()
+var func = person.sayName;
+func();
+
+// $('button').click(person.sayAge);
+    </script>
+    <!-- <img src="https://deercontent.cdnjtzy.com/e7f9c52e0dfcdc746152589f5fab7f9a.jpg?imageMogr2/format/png" alt="">
+    <img src="https://upload-images.jianshu.io/upload_images/21829618-9e989c7e53dc1c0f.png?imageMogr2/format/webp" alt="">
+    <img src="https://upload-images.jianshu.io/upload_images/21829618-9e989c7e53dc1c0f.png" alt=""> -->
+    <!-- <img src="https://deercontent.cdnjtzy.com/d696f9139630f9bcdbfe7b7bf98de701.jpg?imageMogr2/format/png" alt=""> -->
+    <img src="https://zyb-yayapub-1253445850.file.myqcloud.com/upload/up_347fb9504c6d92a51ddfa01b56bfb34d.jpg" alt="">
+</body>
+</html>

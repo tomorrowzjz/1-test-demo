@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video.js KPIs Example</title>
+  <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+</head>
+<body>
+  <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup='{}'>
+    <source src="your-video-url.mp4" type="video/mp4" />
+  </video>
+  <script>
+    const player = videojs('my-video');
+    let playStartTime = 0;
+    let totalPlayTime = 0;
+    let pageEnterTime = new Date().getTime();
+    let playAttempts = 0;
+    let playFailures = 0;
+
+    player.ready(() => {
+      // 监听播放事件
+      player.on('play', () => {
+        playAttempts++;
+        playStartTime = new Date().getTime();
+      });
+
+      // 监听播放失败事件
+      player.on('error', () => {
+        playFailures++;
+      });
+
+      // 监听暂停事件
+      player.on('pause', () => {
+        const pauseTime = new Date().getTime();
+        totalPlayTime += pauseTime - playStartTime;
+        playStartTime = pauseTime;
+      });
+
+      // 监听播放结束事件
+      player.on('ended', () => {
+        const endTime = new Date().getTime();
+        totalPlayTime += endTime - playStartTime;
+      });
+    });
+
+    window.addEventListener('beforeunload', () => {
+      const pageLeaveTime = new Date().getTime();
+      const pageStayTime = pageLeaveTime - pageEnterTime;
+      const failureRate = playFailures / playAttempts;
+
+      console.log('播放时长：', totalPlayTime / 1000);
+      console.log('停留时长：', pageStayTime / 1000);
+      console.log('失败率：', failureRate);
+
+      // 上报数据到统计系统
+    });
+  </script>
+</body>
+</html>

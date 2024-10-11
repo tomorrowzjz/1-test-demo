@@ -1,0 +1,154 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-12-13 10:09:50
+ * @LastEditTime: 2021-12-29 17:09:14
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: /undefined/Users/zyb/Desktop/my-test/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 随机的起始点和终点，这里不考虑边缘情况，实际生产环境下，相近的两点应该很少会有加指向性箭头的需求
+const sp = { left: Math.floor(window.innerWidth * Math.random()), top: Math.floor(window.innerHeight * Math.random()) };
+const ep = { left: Math.floor(window.innerWidth * Math.random()), top: Math.floor(window.innerHeight * Math.random()) };
+
+const canvas = document.createElement('canvas');
+canvas.style.position = 'absolute'; // 设置绝对定位
+canvas.style.left = Math.min(sp.left, ep.left) + 'px'; // 设置左偏移量
+canvas.style.top = Math.min(sp.top, ep.top) + 'px'; // 设置右偏移量
+canvas.width = Math.abs(sp.left - ep.left); // 设置宽度
+canvas.height = Math.abs(sp.top - ep.top); // 设置高度
+
+// 顺便为 Canvas 加个红色的边框，方便 debug
+canvas.style.border = '1px solid red';
+
+// 把 Canvas 放到 body 中
+document.body.appendChild(canvas);
+
+const ctx = canvas.getContext('2d'); // 获取 Canvas 上下文
+
+// 下面求各点在 Canvas 中的坐标
+sp.x = sp.left - Math.min(sp.left, ep.left);
+sp.y = sp.top - Math.min(sp.top, ep.top);
+ep.x = ep.left - Math.min(sp.left, ep.left);
+ep.y = ep.top - Math.min(sp.top, ep.top);
+
+// 算贝塞尔曲线的控制点坐标，很简单，只需要把起始点和终点的 x 相加除以 3, y 永远和起始点的 y 一致
+// 这样向左和向右的箭头不会是一样的曲线，显得不那么死板
+const cp = {
+    x: (sp.x + ep.x) / 3,
+    y: sp.y
+};
+
+ctx.beginPath();
+ctx.moveTo(sp.x, sp.y);
+ctx.quadraticCurveTo(cp.x, cp.y, ep.x, ep.y);
+ctx.strokeStyle = '#FB9845';
+ctx.lineWidth = '3';
+ctx.stroke();
+ctx.closePath();
+
+// 绘制出控制点到终点的连线，方便 debug
+ctx.beginPath();
+ctx.moveTo(cp.x, cp.y);
+ctx.lineTo(ep.x, ep.y);
+ctx.strokeStyle = 'red';
+ctx.lineWidth = '1';
+ctx.stroke();
+ctx.closePath();
+
+
+// 把 Canvas 坐标转换成旋转计算所使用的坐标，接收 1 个参数，需要转换的点 p
+function coordEx(p) {
+    const result = {};
+    if (ep.x < sp.x && ep.y < sp.y) {
+        result.x = p.x;
+        result.y = p.y;
+    } else if (ep.x < sp.x && ep.y > sp.y) {
+        result.x = p.x;
+        result.y = Math.abs(sp.top - ep.top) - p.y;
+    } else if (ep.x > sp.x && ep.y < sp.y) {
+        result.x = Math.abs(sp.left - ep.left) - p.x;
+        result.y = p.y;
+    } else if (ep.x > sp.x && ep.y > sp.y) {
+        result.x = Math.abs(sp.left - ep.left) - p.x;
+        result.y = Math.abs(sp.top - ep.top) - p.y;
+    }
+
+    return result;
+}
+
+// 把旋转计算用的坐标转换回 Canvas 坐标，用于绘图
+function coordRe(p) {
+    const result = {};
+    if (ep.x < sp.x && ep.y < sp.y) {
+        result.x = p.x;
+        result.y = p.y;
+    } else if (ep.x < sp.x && ep.y > sp.y) {
+        result.x = p.x;
+        result.y = Math.abs(sp.top - ep.top) - p.y;
+    } else if (ep.x > sp.x && ep.y < sp.y) {
+        result.x = Math.abs(sp.left - ep.left) - p.x;
+        result.y = p.y;
+    } else if (ep.x > sp.x && ep.y > sp.y) {
+        result.x = Math.abs(sp.left - ep.left) - p.x;
+        result.y = Math.abs(sp.top - ep.top) - p.y;
+    }
+
+    return result;
+}
+
+
+const CURVE_ARROW_ANGLE = 20; // 旋转的角度
+const CURVE_ARROW_LENGTH = 26; // 绘制箭头线段的长度
+const ncp = coordEx(cp); // 转换控制点坐标
+
+// 计算逆时针旋转后的坐标
+const nlp = {
+    x: ncp.x * Math.cos((CURVE_ARROW_ANGLE * Math.PI) / 180) - ncp.y * Math.sin((CURVE_ARROW_ANGLE * Math.PI) / 180),
+    y: ncp.x * Math.sin((CURVE_ARROW_ANGLE * Math.PI) / 180) + ncp.y * Math.cos((CURVE_ARROW_ANGLE * Math.PI) / 180)
+};
+
+// 计算箭头线段长度和 nlp 到原点距离的比值，用于计算绘制箭头的坐标
+const lRate = CURVE_ARROW_LENGTH / Math.sqrt(nlp.x * nlp.x + nlp.y * nlp.y);
+
+// 把 nlp 的坐标转换为绘制箭头的坐标
+nlp.x = nlp.x * lRate;
+nlp.y = nlp.y * lRate;
+
+// 把绘制箭头的坐标转换回 Canvas 坐标
+const lArrowPoint = coordRe(nlp);
+ctx.beginPath();
+ctx.moveTo(lArrowPoint.x, lArrowPoint.y);
+ctx.lineTo(ep.x, ep.y);
+ctx.strokeStyle = '#FB9845';
+ctx.lineWidth = '3';
+ctx.stroke();
+
+
+const PADDING = 20;
+
+// 修改上面设置 canvas 宽高的代码
+canvas.width = Math.abs(sp.left - ep.left) + PADDING * 2; // 设置宽度
+canvas.height = Math.abs(sp.top - ep.top) + PADDING * 2; // 设置高度
+
+// 修改上面设置 canvas 偏移量的代码
+canvas.style.left = Math.min(sp.left, ep.left) - PADDING + 'px'; // 设置左偏移量
+canvas.style.top = Math.min(sp.top, ep.top) - PADDING + 'px'; // 设置右偏移量
+
+// 并在获取 canvas 上下文之后，设置 tranlate
+ctx.tranlate(PADDING, PADDING);
+
+
+
+  </script>
+</body>
+</html>

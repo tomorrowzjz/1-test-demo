@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fn(arr) {
+            let ret = []
+            // debugger
+            function backtracking(start,arr2) {
+                
+                ret.push([...arr2])
+                console.log(start,JSON.stringify(arr2),JSON.stringify(ret));
+                for(let i = start;i<arr.length;i++) {
+                    arr2.push(arr[i])
+                    backtracking(i+1,arr2)
+                    arr2.pop()
+                }
+            }
+            backtracking(0,[])
+            return ret
+        }
+        console.log(fn([1,2,3]))
+    </script>
+</body>
+</html>

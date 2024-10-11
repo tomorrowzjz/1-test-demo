@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>test</div>
+    <script>
+    async function sendRequest(list,limit,cd) {
+       let len = list.length
+       let t = len
+       if(t<limit){
+         while(t){
+           await runTask()
+           t--
+         }
+       }else{
+         let temp = limit
+         while(temp){
+           await runTask()
+           temp--
+         }
+       }
+       async function runTask() {
+         let current = list.shift()
+         if(!current){
+           return
+         }
+         await run(current)
+       }
+       async function run(current){
+         try {
+           let task = await current();
+           console.log(list.length);
+           if(list.length){
+            runTask()
+           }else{
+             cd()
+           }
+         } catch (error) {
+           console.log(error);
+           if(list.length){
+             runTask()
+           }else{
+             cd()
+           }
+         }
+         
+       }
+     } 
+    function request(num){
+       return function test() {
+        // promise 是一个参数 一个函数
+        return new Promise((resolve, reject) => {
+           setTimeout(()=>{
+             console.log('request',num);
+             resolve()
+             
+           },1000)
+         }) 
+       }
+     }
+     sendRequest([request(1),request(2),request(3)],2,()=>{
+       console.log("run success");
+     })
+    console.log('test');
+       </script>
+</body>
+</html>

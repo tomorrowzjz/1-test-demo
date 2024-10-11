@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <script>
+        const wasmUrl = 'test.wasm';
+        const wasmImports = {};
+
+        fetch(wasmUrl)
+        .then(response => response.arrayBuffer())
+        .then(bytes => WebAssembly.instantiate(bytes, wasmImports))
+        .then((res) => {
+            console.log(res);
+            let exports = res.instance.exports
+            console.log(exports.add(1, 2)); // 3
+            console.log(exports.add(2, 2)); // 4
+            console.log(exports.multiply(2.5, 5.5)); // 12
+        });
+      </script>
+
+</body>
+</html>

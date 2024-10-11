@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 函数
+function fn(a){
+        console.log(a);	 	//根据AO对象中的数据第一个打印的是：fn()
+	// 变量声明+变量赋值（只提升变量声明，不提升变量赋值）
+	var a = 123;		// 执行到这时，由于变量赋值是不提升的，所以函数被123覆盖了
+	console.log(a);		// 123
+	// 函数声明
+	function a(){};		// 这里被提升上去了，可以忽略
+	console.log(a);		// 123
+	// 函数表达式
+	var b = function(){};
+	console.log(b);		// 根据AO对象中的数据：fn()
+	// 函数
+	 function d(){};
+}
+//调用函数
+fn(1);
+    </script>
+</body>
+</html>

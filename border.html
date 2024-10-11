@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<div class="bg">
+  <div class="drag">like window</div>
+  <div class="drag1">1111111111</div>
+</div>
+<style>
+    .bg{
+  width:100%;
+  height:100vh;
+  position:relative;
+  background:url("https://gxcos.cdnjtzy.com/fe/share/plan-bg.png") no-repeat fixed;
+  padding:1px;
+  box-sizing:border-box;
+  z-index:1;
+}
+.bg:after
+  content:"";
+  width:100%;
+  height:100%;
+  position:absolute;
+  left:0;
+  top:0;
+  background:inherit;
+  filter:blur(2px);
+  z-index:2;
+}
+.drag{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+width:200px;
+height:200px;
+text-align:center;
+z-index:11;
+}
+.drag1{
+position:absolute;
+left:50%;
+top:50%;
+/* transform:translate(-50%,-50%); */
+width:200px;
+height:200px;
+text-align:center;
+z-index:1;
+}
+</style>
+
+</body>
+
+</html>

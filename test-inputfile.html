@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="fileInput">
+    <script>
+        document.addEventListener('visibilitychange', function () {
+            console.log(111);
+        });
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function() {
+            console.log('change');
+            if (fileInput.files.length === 0) {
+                console.log('用户取消了文件的选择。');
+                // 在这里执行取消文件选择后的操作
+            }
+        });
+        fileInput.addEventListener('input', function() {
+            if (fileInput.files.length === 0) {
+                console.log('用户取消了文件的选择1。');
+                // 在这里执行取消文件选择后的操作
+            }
+        });
+    </script>
+</body>
+</html>

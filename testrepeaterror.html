@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./moment.min.js"></script>
+</head>
+<body>
+    <div>11112222</div>
+    <script>
+        let s = {}
+        let format1 = function format(
+            value,
+            format = 'YYYY-MM-DD HH:mm'
+        ){
+            console.log(format);
+            // return moment(value).format(format);
+        }
+        let sss = format1(new Date(1585116000000))
+        console.log(sss);
+        let obj = {a:3,b:6}; let ss = {...obj}; 
+        console.log(ss);
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        padding: 0 30px;
+        height: 40px;
+        border-image-source: url("https://gxcos.cdnjtzy.com/fe/jzl-index-new/desk-cover-new-v2.png");
+        border-image-slice: 40 100 40 100;
+        border-image-width: 40px 100px 40px 100px;
+        border-image-repeat: no-repeat;
+      }
+      .test{
+        position: absolute;
+        padding: 0.32rem 0.32rem 0.28rem 0.32rem;
+        z-index: 2;
+        height: 2.6rem;
+        width: 100%;
+        top: 28%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-image: url(https://gxcos.cdnjtzy.com/fe/jzl-index-new/week-card.png);
+        transform: translateY(9%);
+        }
+    </style>
+    <!-- <script src="https://test.com/js/test.js"></script> -->
+    <link rel="prefetch" href="https://gxcos.cdnjtzy.com/fe/jzl-index-new/banner-bg.png">
+    <link rel="prefetch" href="https://gxcos.cdnjtzy.com/fe/jzl-index-new/ip_01.png">
+    <link rel="prefetch" href="https://gxcos.cdnjtzy.com/fe/jzl-index-new/bg-line.png">
+    <link rel="prefetch" href="https://gxcos.cdnjtzy.com/fe/jzl-index-new/week-card.png">
+  </head>
+  <body>
+    <div class="box">测试点九图</div>
+    <div class="test">
+
+    </div>
+  </body>
+</html>
+
+// 因为平行四边形的纵轴必须是连续的，所以slice的上下都是为40（四边形的总高度是80）,左右就按正常比例获取，我取的100（也可以其他值），注意使用过程中宽度至少大于40才不会断层

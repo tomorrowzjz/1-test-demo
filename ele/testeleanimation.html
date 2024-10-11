@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #d1,
+            #d2,
+            #d3 {
+                width: 100px;
+                height: 100px;
+            }
+            #d1 {
+                background: lightsalmon;
+                position: fixed;
+                top: 30%;
+            }
+            #d2 {
+                background: lightblue;
+                position: fixed;
+                top: 80%;
+                left: 0;
+            }
+            #d3 {
+                background: red;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="d1"></div>
+        <div id="d2"></div>
+        <div id="d3"></div>
+        <script src="./MoveBall.js"></script>
+        <script>
+            const d1 = document.getElementById('d1');
+            const d2 = document.getElementById('d2');
+            const d3 = document.getElementById('d3');
+            d1.onclick = function (e) {
+                let moveball = new MoveBall({
+                    startDom: d1,
+                    endDom: d3,
+                });
+                moveball.freeThrow();
+            };
+            d2.onclick = function (e) {
+                let moveball = new MoveBall({
+                    startDom: d2,
+                    endDom: d3,
+                });
+                moveball.freeThrow();
+            };
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .progress-container {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      position: relative;
+      background: #f0f0f0;
+    }
+
+    .progress {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(#3498db var(--percentage), #f0f0f0 var(--percentage));
+      position: absolute;
+      clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 60% 100%);
+      transform: rotate(-90deg);
+    }
+
+    .percentage-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-container">
+    <div class="progress" style="--percentage: 60%;"></div>
+    <div class="percentage-text">60%</div>
+  </div>
+</body>
+</html>

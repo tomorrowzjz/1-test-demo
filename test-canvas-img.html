@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .test-canvas{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <img src="" alt="" class="test-canvas">
+    <script>
+        function screenshots() {
+            const img = new Image()
+            img.setAttribute('crossOrigin', 'Anonymous')
+            img.src =
+            'https://xfe.cdnjtzy.com/x/app-info/ai-essay-correction-guide1.jpg'
+            img.onload = () => {
+            console.log('imgW', img.width)
+            console.log('imgH', img.height)
+
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
+            const x = 252
+            const y = 288
+            const width = 1000
+            const height = 39
+            // 清空画布内容
+            // ctx?.clearRect(0, 0, canvas.width, canvas.height)
+
+            // 绘制目标区域
+            ctx?.drawImage(img, x, y, width, height, 0, 0, width, height)
+
+            // 输出结果
+            let currentImg = document.querySelector('.test-canvas')
+            currentImg.src = canvas.toDataURL()
+            console.log(canvas.toDataURL())
+    }
+    
+  }
+  screenshots()
+    </script>
+</body>
+</html>

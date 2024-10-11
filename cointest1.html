@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const coinImg = new Image();
+    coinImg.src = "https://gxcos.cdnjtzy.com/fe/correct/correct-fail-icon.png";
+
+    function drawCoin(x, y, scale) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(scale, scale);
+        ctx.drawImage(coinImg, -coinImg.width / 2, -coinImg.height / 2);
+        ctx.restore();
+    }
+
+    let x = 0;
+    let y = 0;
+    let scale = 1;
+    let vx = 2;
+    let vy = 2;
+    let gravity = 0.1;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawCoin(x, y, scale);
+        x += vx;
+        y += vy;
+        vy += gravity;
+        if (y + coinImg.height / 2 > canvas.height) {
+            vy = -vy * 0.8;
+        }
+        if (x + coinImg.width / 2 > canvas.width || x - coinImg.width / 2 < 0) {
+            vx = -vx;
+        }
+        scale += 0.01;
+    }
+
+    animate();
+</script>
+    
+</body>
+</html>

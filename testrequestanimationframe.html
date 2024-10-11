@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 模拟大任务需要处理的数据
+const bigData = Array.from({ length: 1000 }, (_, index) => index + 1);
+let i = 0;
+// 定义处理数据的函数
+function processDataChunk(startIndex, chunkSize) {
+  for (let i = startIndex; i < startIndex + chunkSize; i++) {
+    // 在这里执行实际的数据处理逻辑
+    // 这里只是一个简单的示例，实际情况可能包括复杂的计算或操作
+    console.log(`Processing data item ${i}`);
+  }
+}
+
+// 使用requestAnimationFrame拆分任务
+function processBigDataWithRAF() {
+  const chunkSize = 10; // 每帧处理的数据块大小
+  console.log(bigData,'bigData');
+  function processChunk(timestamp) {
+    console.log(timestamp,'timestamp');
+    // 计算当前帧需要处理的数据范围
+    const startIndex = timestamp / 16; // 16毫秒是requestAnimationFrame的典型帧间隔
+    console.log(startIndex,'startIndex1');
+    // 执行数据处理
+    processDataChunk(startIndex, chunkSize);
+    
+    // 判断是否还有剩余数据需要处理
+    if (startIndex < bigData.length) {
+      // 继续下一帧处理剩余数据
+      requestAnimationFrame(processChunk);
+    }
+
+  }
+
+  // 启动第一帧处理
+  requestAnimationFrame(processChunk);
+}
+
+// 调用函数开始处理大数据
+// processBigDataWithRAF();
+requestAnimationFrame(()=>{
+    console.log(1);
+})
+setTimeout(()=>{
+    console.log(2);
+},0)
+
+    </script>
+</body>
+</html>

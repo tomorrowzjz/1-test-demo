@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        svg{
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            stroke-linejoin: round;
+            stroke-miterlimit: 2;
+            z-index: 10000;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- <svg class="driver-overlay driver-overlay-animated" 
+    viewBox="0 0 1094 783" 
+    xmlSpace="preserve" 
+    xmlnsXlink="http://www.w3.org/1999/xlink" 
+    version="1.1" 
+    preserveAspectRatio="xMinYMin slice" 
+    style="fill-rule: evenodd; 
+    clip-rule: evenodd; 
+    stroke-linejoin: round; 
+    stroke-miterlimit: 2; 
+    z-index: 10000; 
+    position: fixed; 
+    top: 0px; 
+    left: 0px; 
+    width: 100%; 
+    height: 100%;">
+    <path d="M1094,0L0,0L0,783L1094,783L1094,0Z
+        M49.5,66.5 h980 a5,5 0 0 1 5,5 v70 a5,5 0 0 1 -5,5 h-980 a5,5 0 0 1 -5,-5 v-70 a5,5 0 0 1 5,-5 z" style="fill: rgb(0, 0, 0); opacity: 0.7; pointer-events: auto; cursor: auto;"></path></svg> -->
+        <!-- <svg width="100px" height="100px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10 H 90 V 90 H 10 L 10 10"/>
+          </svg> -->
+
+<!-- <svg width="100px" height="100px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 10 h 80 v 80 h -80 Z" />
+  </svg> -->
+
+  <!-- <svg width="200px" height="200px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="transparent"/>
+  </svg> -->
+  <!-- <svg width="200px" height="200px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent"/>
+    <circle cx="130" cy="110" r="2" fill="red"/>
+    <circle cx="120" cy="140" r="2" fill="red"/>
+    <line x1="130" y1="110" x2="120" y2="140" style="stroke:rgb(255,0,0);stroke-width:2"/>
+    <circle cx="180" cy="140" r="2" fill="red"/>
+    <circle cx="170" cy="110" r="2" fill="red"/>
+    <line x1="180" y1="140" x2="170" y2="110" style="stroke:rgb(255,0,0);stroke-width:2"/>
+</svg> -->
+<svg width="600px" height="320px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- <path d="M10 315
+             L 110 215
+             A 30 50 0 0 1 162.55 162.45
+             L 172.55 152.45
+             A 30 50 -45 0 1 215.1 109.9
+             L 315 10
+             H 0
+             z" stroke="black" fill="red" stroke-width="2" fill-opacity="0.5"/> -->
+             <!-- <polyline points="60, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 145"/> -->
+             <path id="my_path" d="M 20,20 C 40,40 80,40 200,20" fill="transparent" />
+<text>
+  <textPath xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#my_path">
+    This text follows a curve.
+  </textPath>
+</text>
+
+<!-- <g fill="red">
+    <rect x="0" y="0" width="10" height="10" transform="translate(30,40)"/>
+    <rect x="20" y="0" width="10" height="10" transform="rotate(45)" />
+  </g> -->
+  
+
+  </svg>
+
+  <!-- <svg
+  viewBox="-40 0 150 100"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g
+    fill="grey"
+    transform="rotate(-10 50 100)
+                translate(-36 45.5)
+                skewX(40)
+                scale(1 0.5)">
+    <path
+      id="heart"
+      d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z" />
+  </g>
+
+  <use xlink:href="#heart" fill="none" stroke="red" />
+</svg> -->
+
+<!-- <svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <clipPath id="cut-off-bottom">
+      <rect x="0" y="0" width="200" height="100" />
+    </clipPath>
+  </defs>
+
+  <circle cx="100" cy="100" r="100" clip-path="url(#cut-off-bottom)" />
+</svg> -->
+<!-- <svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="Gradient">
+      <stop offset="0" stop-color="white" stop-opacity="0" />
+      <stop offset="1" stop-color="white" stop-opacity="1" />
+    </linearGradient>
+    <mask id="Mask">
+      <rect x="0" y="0" width="200" height="200" fill="url(#Gradient)" />
+    </mask>
+  </defs>
+
+  <rect x="0" y="0" width="200" height="200" fill="green" />
+  <rect x="0" y="0" width="200" height="200" fill="red" mask="url(#Mask)" />
+</svg> -->
+
+<!-- <svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="200"
+  height="200">
+  <image
+    x="90"
+    y="-65"
+    width="128"
+    height="146"
+    transform="rotate(45)"
+    xlink:href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/image/mdn_logo_only_color.png" />
+</svg> -->
+<!-- <?xml version="1.0"?> -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="150" height="100" viewBox="0 0 3 2">
+
+  <rect width="1" height="2" x="0" fill="#008d46" />
+  <rect width="1" height="2" x="1" fill="#ffffff" />
+  <rect width="1" height="2" x="2" fill="#d2232c" />
+</svg>
+
+<svg>
+    <!-- symbol definition  NEVER draw -->
+    <symbol id="sym01" viewBox="0 0 150 110">
+      <circle cx="50" cy="50" r="40" stroke-width="8" stroke="red" fill="red" />
+      <circle
+        cx="90"
+        cy="60"
+        r="40"
+        stroke-width="8"
+        stroke="green"
+        fill="white" />
+    </symbol>
+  
+    <!-- actual drawing by "use" element -->
+    <use xlink:href="#sym01" x="0" y="0" width="100" height="50" />
+    <use xlink:href="#sym01" x="0" y="50" width="75" height="38" />
+    <use xlink:href="#sym01" x="0" y="100" width="50" height="25" />
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="50px">
+    <text x="10"  y="20"
+          transform="rotate(30 20,40)">
+      SVG Text Rotation example
+    </text>
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="50px">
+    <text x="10"  y="20"
+          style="font-family: Times New Roman;
+                 font-size  : 24;
+                 stroke     : #00ff00;
+                 fill       : #0000ff;">
+      SVG text styling
+    </text>
+  </svg>
+
+  
+
+  <svg
+  width="100%"
+  height="100%"
+  viewBox="0 0 1000 300"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path
+      id="MyPath"
+      d="M 100 200
+             C 200 100 300   0 400 100
+             C 500 200 600 300 700 200
+             C 800 100 900 100 900 100" />
+  </defs>
+
+  <use xlink:href="#MyPath" fill="none" stroke="red" />
+
+  <text font-family="Verdana" font-size="42.5">
+    <textPath xlink:href="#MyPath">
+      We go up, then we go down, then up again
+    </textPath>
+  </text>
+
+  <!-- Show outline of the viewport using 'rect' element -->
+  <rect
+    x="1"
+    y="1"
+    width="998"
+    height="298"
+    fill="none"
+    stroke="black"
+    stroke-width="2" />
+</svg>
+
+</body>
+</html>

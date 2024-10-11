@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .coin {
+            width: 50px;
+            height: 50px;
+            background: url("https://gxcos.cdnjtzy.com/fe/correct/correct-fail-icon.png") no-repeat center center;
+            background-size: contain;
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation: coin 2s ease forwards;
+        }
+    
+        @keyframes coin {
+            0% {
+                left: 0;
+                top: 0;
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                left: 50%;
+                top: 50%;
+                transform: rotate(360deg) scale(2);
+            }
+            100% {
+                left: 100%;
+                top: 100%;
+                transform: rotate(720deg) scale(1);
+            }
+        }
+    </style>
+    
+    <div class="coin"></div>
+    
+</body>
+</html>

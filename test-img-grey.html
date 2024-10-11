@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Canvas/ImgData Test</title>
+</head>
+
+<body>
+    <canvas id="output"></canvas>
+    <script>
+        var cnv = document.getElementById('output');
+        var cnx = cnv.getContext('2d');
+        cnv.width = 1000;
+        cnv.height = 1000;
+        function grey(input) {
+            cnx.drawImage(myimage, 0 , 0);
+            var width = input.width;
+            var height = input.height;
+            var imgPixels = cnx.getImageData(0, 0, width, height);
+            // console.log(imgPixels);
+            for(var y = 0; y < height; y++){
+                for(var x = 0; x < width; x++){
+                    var i = (y * 4) * width + x * 4;
+                    var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+                    imgPixels.data[i] = avg;
+                    imgPixels.data[i + 1] = avg;
+                    imgPixels.data[i + 2] = avg;
+                }
+            }
+            console.log(imgPixels);
+            cnx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+        }
+
+        var myimage = new Image();
+        myimage.crossOrigin = 'Annoymous'
+        myimage.onload = function() {
+            grey(myimage);
+        }
+        myimage.src = "https://zyb-jingzhunlian-1253445850.cos.ap-beijing.myqcloud.com/jzl-content/static/logo.png";
+    </script>
+</body>
+</html>

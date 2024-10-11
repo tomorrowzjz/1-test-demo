@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .wrap{
+            width: 100%;
+            height: 1000px;
+        }
+        .title{
+            width: 100%;
+            height: 300px;
+            text-align: center;
+            background: chocolate;
+        }
+        .nav{
+            /* 兼容chorme */
+            /* position: -webkit-sticky; */
+            /* position: sticky; */
+            /* top: 0px; */
+            width: 100%;
+            height: 400px;
+            text-align: center;
+            background: chartreuse;
+            color: #fff;
+        }
+        .nav-fixed{
+            /* 兼容chorme */
+            /* position: -webkit-sticky; */
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            display: none;
+            height: 400px;
+            text-align: center;
+            background: chartreuse;
+            color: #fff;
+        }
+        .item-list{
+            width: 100%;
+            height: 20px;
+            display: inline-block;
+            background: cornflowerblue;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="title">css吸顶效果实现</div>
+
+        <div class="nav" id="searchBar">导航吸顶导航吸顶导航吸顶导航吸顶</div>
+        <div class="nav-fixed" id="nav-fixed">导航吸顶导航吸顶导航吸顶导航吸顶</div>
+        <ul class="item">
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻3</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻5</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻7</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻8</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻10</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻32</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻56</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻78</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻89</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻555</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻6776</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+            <li class="item-list">海上生明月天涯若比邻</li>
+        </ul>
+    </div>
+    <script>
+        window.addEventListener("scroll",()=>{
+
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;  
+
+        let offsetTop = document.querySelector('#searchBar').offsetTop;
+
+        if (scrollTop > offsetTop) {
+            // document.querySelector('#searchBar').style.position="fixed";
+            // document.querySelector('#searchBar').style.top="0";
+            document.querySelector('#nav-fixed').style.display='block'
+        } else {
+            // document.querySelector('#searchBar').style.position="";
+            // document.querySelector('#searchBar').style.top="";
+            document.querySelector('#nav-fixed').style.display='none'
+        }})
+
+        function getSubmitNumber() {
+            const time = 1663676815548
+            const targetTime = 1672502400000
+            const startDate = 350
+            const endDate = 999
+            const radio = (targetTime - time)/(endDate - startDate)
+            const currentTime = new Date().getTime()
+            if(targetTime < currentTime){
+                return '999+'
+            }else{
+                return String(Math.floor((currentTime-time) / radio) + startDate)
+            }
+            
+        }
+        console.log(getSubmitNumber(),'getSubmitNumber');
+    </script>
+</body>
+</html>
